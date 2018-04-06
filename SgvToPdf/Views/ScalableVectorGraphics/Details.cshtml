@@ -1,0 +1,62 @@
+﻿@model SgvToPdf.ViewModels.SgvWithResizedInline
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="container">
+    <h2>Details for @Model.sgv.Title </h2>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-7">
+            <h3>SGV Inline Specifications</h3><hr />
+            @Html.EditorFor(model => model.sgv.SgvSpecs, new { htmlAttributes = new { @class = "form-control", @rows = "28", @disabled = "disabled" } })
+
+        </div>
+        <div class="col-md-5">
+            <h3>SGV Render</h3><hr />
+            @Html.Raw(Model.SgvResized)
+
+        </div>
+    </div>
+
+    @Html.DisplayNameFor(model => model.sgv.DateCreated): @Html.DisplayFor(model => model.sgv.DateCreated)
+
+    <div>
+
+
+
+
+        <hr />
+        @*<dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SgvSpecs)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SgvSpecs)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+
+            <dd>
+                @Html.</div>(model => model.DateCreated)
+            </dd>
+
+        </dl>*@
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.sgv.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</div>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<SgvToPdf.ViewModels.SgvWithResizedInline>
+
+@{
+    ViewBag.Title = "SGV Elements";
+}
+<meta http-equiv="Content-Type" content="application/xhtml+html; charset=utf-8" />
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <h2>SGV Elements</h2>
+        </div>
+        <div class="col-4">
+            <div style="position:absolute; right:0; bottom:0;">
+                @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info" })
+                @Html.ActionLink("Generate PDF", "GeneratePdf", null, new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.sgv.Title)
+                </th>
+                <th >
+                    @Html.DisplayNameFor(model => model.sgv.SgvSpecs)
+                </th>
+                <th>
+                    Sgv Render
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.sgv.DateCreated)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sgv.Title)
+                </td>
+                <td style="max-width:600px">
+                    @Html.DisplayFor(modelItem =>  item.SgvResized)
+                </td>
+                <td>
+                    @Html.Raw(@item.sgv.SgvSpecs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sgv.DateCreated)
+                </td>
+                <td style="width:165px">
+                    <a href="/ScalableVectorGraphics/Details?id=@item.sgv.Id" class="btn btn-success btn-fab btn-round"><i class="fa fa-info"></i></a>
+                    <a href="/ScalableVectorGraphics/Edit?id=@item.sgv.Id" class="btn btn-info btn-fab btn-round"><i class="fa fa-edit"></i></a>
+                    <a href="/ScalableVectorGraphics/Delete?id=@item.sgv.Id" class="btn btn-danger btn-fab btn-round"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+    }
+
+        </table>
+    </div>
+</div>

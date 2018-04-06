@@ -1,0 +1,86 @@
+﻿@model SgvToPdf.Models.ScalableVectorGraphic
+
+@{
+    ViewBag.Title = "Create new";
+}
+
+<div class="container">
+
+    <h2>Create new  SGV</h2>
+    <hr />
+
+
+
+    @using (Html.BeginForm("Create", "ScalableVectorGraphics",
+        FormMethod.Post, new { enctype = "multipart/form-data", id = "sgvForm" }))
+    {
+        @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group ">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label bmd-label-floating" })
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-6">
+                
+            </div>
+          
+
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SgvSpecs, htmlAttributes: new { @class = "control-label  bmd-label-floating" })
+                    @Html.EditorFor(model => model.SgvSpecs, new { htmlAttributes = new { @class = "form-control", rows = "6" } })
+                    @Html.ValidationMessageFor(model => model.SgvSpecs, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <div class="editor-field">
+                    <div>
+                        <br />
+                        You can Paste a sgv-xml text into the field "SVG specification" <b>or</b> Upload a  *.sgv File <br />
+                        Upload a file:
+                        <br />
+                        <input id="fileUploader" type="file" name="Image" class="btn btn-primary btn-block btn-lg" />
+                    </div>
+                </div>
+            </div>
+         </div>
+
+        <div class="form-group">
+            <div col-md-10">
+                <input id="submitSGV" type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+                }
+
+
+                <div>
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+
+            </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    $("#submitSGV").click(function () {
+        var fileName = $("#fileUploader").val();
+        if (fileName) {
+            $("#SgvSpecs").val("File");
+
+        }
+
+    });
+</script>
+}
