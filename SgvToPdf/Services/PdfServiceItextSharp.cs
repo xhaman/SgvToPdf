@@ -16,6 +16,7 @@ namespace SgvToPdf.Services
             try
             {
 
+
                 Document doc = new Document(PageSize.A4, 10, 10, 42, 35);
                 MemoryStream stream = new MemoryStream();
                 PdfWriter wri = PdfWriter.GetInstance(doc, stream);
@@ -50,8 +51,7 @@ namespace SgvToPdf.Services
 
                     Chunk DateChunk = new Chunk("Created on: "+sgv.DateCreated, pdfLabel);
                     Paragraph Date = new Paragraph(DateChunk);
-                    Date.Alignment = Element.ALIGN_BOTTOM;
-                    //Date.Alignment = Element.ALIGN_RIGHT;
+                    Date.Alignment = Element.ALIGN_RIGHT;
                     doc.Add(Date);
 
                     doc.NewPage();

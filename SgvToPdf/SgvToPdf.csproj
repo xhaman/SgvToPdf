@@ -244,6 +244,7 @@
       <DependentUpon>aspnet-SgvToPdf.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\svgbackground.png" />
     <Content Include="Content\MaterialKit\material-kit.css" />
     <Content Include="Content\MaterialKit\material-kit.min.css" />
     <Content Include="Scripts\jquery.min.js" />
