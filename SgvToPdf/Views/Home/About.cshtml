@@ -1,7 +1,29 @@
 ﻿@{
-    ViewBag.Title = "About";
+    ViewBag.Title = "About  the project";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<div class="container">
+    <h2>@ViewBag.Title.</h2>
 
-<p>Use this area to provide additional information.</p>
+    <p>
+
+        @*A Implemented site of this app in azure can be found Here <a href="">content</a>*@
+
+        The app allow creation, edition, listing and deletion of records that contain a title and an unlimited size text field for containing a SVG specification.<br />
+        Creates and download a PDF document that has 1 page for every record in the table, showing up Title from the record, and a graphic image rendered out of the SVG text in the table<br />
+        It is developed in Visual Basic, C#, MVC 5, Sql (with a sql mdf file included) Jquery, bootstrap and Material Kit<br />
+        The database will be build and Initialized via EF Migration<br />
+        The Reference of the project will be downloaded automatically via NuGet<br />
+        <b>The main components</b><br />
+        1.	Dependency Injection of the man components using  Unity <a href="https://www.nuget.org/packages/Unity.Mvc5/"> https://www.nuget.org/packages/Unity.Mvc5/</a> <br />
+        2.	PDF Render using iTextSharp <a href="https://www.nuget.org/packages/Unity.Mvc5/"> https://www.nuget.org/packages/iTextSharp/5.5.13</a> <br />
+        3.	Svg Manipulation using  SVG.NET <a href="https://www.nuget.org/packages/Unity.Mvc5/">  https://www.nuget.org/packages/Svg/</a> <br />
+        <br />
+         
+        The main controller ued in the app is ScalableVectorGraphicsController <br />
+        The api controller is  sgvApiController <br />
+        The pdf and Svg components are under the folder services in root <br />
+
+
+
+    </p>
+</div>

@@ -299,6 +299,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\svgtopdfArturo - Web Deploy.pubxml" />
     <None Include="Scripts\TEMP\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\TEMP\jquery-1.10.2.js" />
     <Content Include="Scripts\TEMP\jquery-1.10.2.min.js" />

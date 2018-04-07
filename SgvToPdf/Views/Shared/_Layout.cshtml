@@ -27,7 +27,7 @@
     <nav class="navbar @navbarClass   fixed-top  navbar-expand-lg " color-on-scroll="100" id="sectionsNav">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="../index.html">SVG to PDF </a>
+                <a class="navbar-brand" href="/">SVG to PDF </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
@@ -41,21 +41,15 @@
                             <i class="material-icons">apps</i> Components
                         </a>
                         <div class="dropdown-menu dropdown-with-icons">
-                            <a href="../index.html" class="dropdown-item">
-                                <i class="material-icons">layers</i> All Components
+                            <a href="/ScalableVectorGraphics/Index" class="dropdown-item">
+                                <i class="material-icons">layers</i> SVG Data
                             </a>
                             <a href="/Home/ApiDocumentation" class="dropdown-item">
                                 <i class="material-icons">content_paste</i> Api Documentation
                             </a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("SVG Data", "Index", "ScalableVectorGraphics", null, new { @class = "nav-link" })
-
-                        @*<a class="nav-link" href="javascript:void(0)" onclick="scrollToDownload()">*@
-                        @*<i class="material-icons">cloud_download</i> SGV List*@
-                        </a>
-                    </li>
+              
 
                 </ul>
             </div>
@@ -78,14 +72,10 @@
             <nav class="pull-right">
                 <ul>
                     <li>
-                        <a href="/Home/About">
-                            About
-                        </a>
+                        @Html.ActionLink("About", "Home", "About")
                     </li>
                     <li>
-                        <a href="">
-                           Api Reference
-                        </a>
+                      @Html.ActionLink("Api Documentation","Home", "ApiDocumentation")
                     </li>
 
                 </ul>
