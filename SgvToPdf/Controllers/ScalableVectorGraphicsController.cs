@@ -117,6 +117,15 @@ namespace SgvToPdf.Controllers
 
         }
 
+        public ActionResult SeedDatabase()
+        {
+            RestSeeder restSeeder = new RestSeeder();
+            restSeeder.SeedSgvItems();
+
+            return RedirectToAction("Index") ;
+
+        }
+
 
 
 

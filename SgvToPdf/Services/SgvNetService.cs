@@ -22,15 +22,11 @@ namespace SgvToPdf.Services
             SvgDocument FSvgDoc = new SvgDocument();
             FSvgDoc = SvgDocument.Open(xml);
 
-            Size size = new Size();
-            size.Height = (int)FSvgDoc.Height;
-            size.Width = (int)FSvgDoc.Width;
-            var Resized = ResizeKeepAspect(size, 400, 600);
-            FSvgDoc.Width = Resized.Height;
-            FSvgDoc.Height = Resized.Width;
-
-
             var bitmap = FSvgDoc.Draw();
+            Size size = new Size() { Height = (int)FSvgDoc.Height, Width = (int)FSvgDoc.Width };
+            var AspectRatio = ResizeKeepAspect(size, 400, 600);
+            bitmap = new Bitmap(bitmap, new Size(AspectRatio.Width, AspectRatio.Height ));
+
             bitmap = DrawWhiteBackground(bitmap);
             return bitmap;
 
@@ -64,12 +60,16 @@ namespace SgvToPdf.Services
             FSvgDoc = SvgDocument.Open(xml);
 
 
-            Size size = new Size();
-            size.Height = (int)FSvgDoc.Height;
-            size.Width = (int)FSvgDoc.Width;
-            var Resized = ResizeKeepAspect(size, maxHeight, maxWidth);
-            FSvgDoc.Width = Resized.Height;
-            FSvgDoc.Height = Resized.Width;
+            //Size size = new Size();
+            //size.Height = (int)FSvgDoc.Height;
+            //size.Width = (int)FSvgDoc.Width;
+            //var Resized = ResizeKeepAspect(size, maxHeight, maxWidth);
+  
+
+            FSvgDoc.ViewBox = new SvgViewBox() { Height = maxHeight*3, Width = maxWidth*3 };//TODO: Fix proper ratio
+            FSvgDoc.Width = maxWidth;// Resized.Width;
+            FSvgDoc.Height = new SvgUnit(SvgUnitType.None, 0);
+
 
             return FSvgDoc.GetXML();
 
@@ -77,7 +77,7 @@ namespace SgvToPdf.Services
 
         public string getXmlfromFile(HttpPostedFileBase image)
         {
-            if (image.ContentLength < 230400 && (image.ContentType == "image/svg+xml"))
+            if (image.ContentLength < 5000000 && (image.ContentType == "image/svg+xml"))
             {
                 var document = image;
                 Stream documentConverted = document.InputStream;//Using
