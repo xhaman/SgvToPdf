@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Api Documentation";
+    var CurrentHost = System.Web.HttpContext.Current.Request.Url.Host + (System.Web.HttpContext.Current.Request.Url.Port == 80 ? string.Empty : ":" + System.Web.HttpContext.Current.Request.Url.Port);
+}
+
+<div class="container">
+    <h2>Api Documentation</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3>
+                <small>This is a sample code for use the REST Api provided for Get or Create new SVG Items on the database</small>
+            </h3>
+            *Host will change automatically when published
+            <!-- Tabs with icons on Card -->
+            <div class="card card-nav-tabs">
+                <div class="card-header card-header-info">
+                    <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#profile" data-toggle="tab">
+                                        <i class="material-icons">storage</i> Get all items
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#messages" data-toggle="tab">
+                                        <i class="material-icons">chat</i> Get Single Item
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#settings" data-toggle="tab">
+                                        <i class="material-icons">backup</i> Post an Item
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content text-left">
+                        <div class="tab-pane active" id="profile">
+                            <h4>HTML</h4>
+                            <p>
+                                http://@CurrentHost/api/sgvApi <br />
+                                GET /api/sgvApi HTTP/1.1<br />
+                                Host: @CurrentHost<br />
+                                Cache-Control: no-cache<br />
+                              
+                            </p>
+                            <h4>C# (Using RestSharp)</h4>
+                            <p>
+                                var client = new RestClient("http://@CurrentHost/api/sgvApi"); <br />
+                                var request = new RestRequest(Method.GET); <br />
+                                request.AddHeader("Cache-Control", "no-cache"); <br />
+                                IRestResponse response = client.Execute(request); <br />
+
+                            </p>
+                        </div>
+                        <div class="tab-pane" id="messages">
+                            <h4>HTML</h4>
+                            <p>
+                                http://@CurrentHost/api/sgvApi/[ElementID] <br />
+                                GET /api/sgvApi HTTP/1.1<br />
+                                Host: @CurrentHost<br />
+                                Cache-Control: no-cache<br />
+
+                            </p>
+                            <h4>C# (Using RestSharp)</h4>
+                            <p>
+                                var client = new RestClient("http://@CurrentHost/api/sgvApi/[ElementID]"); <br />
+                                var request = new RestRequest(Method.GET); <br />
+                                request.AddHeader("Cache-Control", "no-cache"); <br />
+                                IRestResponse response = client.Execute(request); <br />
+
+                            </p>
+                        </div>
+                        <div class="tab-pane" id="settings">
+                            <div class="tab-pane" id="messages">
+                                <h4>HTML</h4>
+                                <p>
+                                    http://@CurrentHost/api/sgvApi/<br />
+                                    POST /api/sgvApi HTTP/1.1<br />
+                                    Host: @CurrentHost<br />
+                                    Content-Type: application/json <br />
+                                    Cache-Control: no-cache<br />
+                                    {<br />
+                                    "Id": "35b5026c-5d11-499a-bbcf-0536901caa68",<br />
+                                    "Title": "Api sgv POST",<br />
+                                    "SgvSpecs": "<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\r\n<svg x=\"0\" y=\"0\" width=\"210mm\" height=\"297mm\" overflow=\"inherit\" viewBox=\"0, 0, 210, 297\" preserveAspectRatio=\"xMidYMid\" font-size=\"0\" id=\"svg8\" xml:space=\"default\" dc=\"http://purl.org/dc/elements/1.1/\" cc=\"http://creativecommons.org/ns#\" rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" svg=\"http://www.w3.org/2000/svg\" sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\" inkscape=\"http://www.inkscape.org/namespaces/inkscape\" docname=\"inkscape boxes.svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\" version=\"1.1\">\r\n  <defs id=\"defs2\" xml:space=\"default\" />\r\n  <namedview id=\"base\" xml:space=\"default\" pagecolor=\"#ffffff\" bordercolor=\"#666666\" borderopacity=\"1.0\" pageopacity=\"0.0\" pageshadow=\"2\" zoom=\"0.35\" cx=\"400\" cy=\"560\" document-units=\"mm\" current-layer=\"layer1\" showgrid=\"false\" window-width=\"1366\" window-height=\"705\" window-x=\"-8\" window-y=\"892\" window-maximized=\"1\" />\r\n  <metadata id=\"metadata5\" xml:space=\"default\"></metadata>\r\n  <g id=\"layer1\" xml:space=\"default\" label=\"Layer 1\" groupmode=\"layer\">\r\n    <rect x=\"22.67857\" y=\"24.10119\" width=\"167.8214\" height=\"216.2024\" stroke-width=\"0.2645833\" id=\"rect3699\" xml:space=\"default\" />\r\n    <rect x=\"67.27976\" y=\"70.97024\" width=\"77.86309\" height=\"108.8571\" stroke-width=\"0.2645833\" id=\"rect3701\" xml:space=\"default\" style=\"fill:#FF0000;\" />\r\n  </g>\r\n</svg>",<br />
+                                    "DateCreated": "2018-04-06T16:53:06.69"<br />
+                                    }
+
+                                </p>
+                                <h4>C# (Using RestSharp)</h4>
+                                <p>
+                                    var client = new RestClient("http://@CurrentHost/api/sgvApi/");<br />
+                                    var request = new RestRequest(Method.POST);<br />
+                                    request.AddHeader("Cache-Control", "no-cache");<br />
+                                    request.AddHeader("Content-Type", "application/json");<br />
+                                    request.AddParameter("undefined", "{\n    \"Id\": \"35b5026c-5d11-499a-bbcf-0536901caa68\",\n    \"Title\": \"Api sgv POST\",\n    \"SgvSpecs\": \"<!DOCTYPE svg PUBLIC \\\"-//W3C//DTD SVG 1.1//EN\\\" \\\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\\\">\\r\\n<svg x=\\\"0\\\" y=\\\"0\\\" width=\\\"210mm\\\" height=\\\"297mm\\\" overflow=\\\"inherit\\\" viewBox=\\\"0, 0, 210, 297\\\" preserveAspectRatio=\\\"xMidYMid\\\" font-size=\\\"0\\\" id=\\\"svg8\\\" xml:space=\\\"default\\\" dc=\\\"http://purl.org/dc/elements/1.1/\\\" cc=\\\"http://creativecommons.org/ns#\\\" rdf=\\\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\\\" svg=\\\"http://www.w3.org/2000/svg\\\" sodipodi=\\\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\\\" inkscape=\\\"http://www.inkscape.org/namespaces/inkscape\\\" docname=\\\"inkscape boxes.svg\\\" xmlns=\\\"http://www.w3.org/2000/svg\\\" xmlns:xlink=\\\"http://www.w3.org/1999/xlink\\\" xmlns:xml=\\\"http://www.w3.org/XML/1998/namespace\\\" version=\\\"1.1\\\">\\r\\n  <defs id=\\\"defs2\\\" xml:space=\\\"default\\\" />\\r\\n  <namedview id=\\\"base\\\" xml:space=\\\"default\\\" pagecolor=\\\"#ffffff\\\" bordercolor=\\\"#666666\\\" borderopacity=\\\"1.0\\\" pageopacity=\\\"0.0\\\" pageshadow=\\\"2\\\" zoom=\\\"0.35\\\" cx=\\\"400\\\" cy=\\\"560\\\" document-units=\\\"mm\\\" current-layer=\\\"layer1\\\" showgrid=\\\"false\\\" window-width=\\\"1366\\\" window-height=\\\"705\\\" window-x=\\\"-8\\\" window-y=\\\"892\\\" window-maximized=\\\"1\\\" />\\r\\n  <metadata id=\\\"metadata5\\\" xml:space=\\\"default\\\"></metadata>\\r\\n  <g id=\\\"layer1\\\" xml:space=\\\"default\\\" label=\\\"Layer 1\\\" groupmode=\\\"layer\\\">\\r\\n    <rect x=\\\"22.67857\\\" y=\\\"24.10119\\\" width=\\\"167.8214\\\" height=\\\"216.2024\\\" stroke-width=\\\"0.2645833\\\" id=\\\"rect3699\\\" xml:space=\\\"default\\\" />\\r\\n    <rect x=\\\"67.27976\\\" y=\\\"70.97024\\\" width=\\\"77.86309\\\" height=\\\"108.8571\\\" stroke-width=\\\"0.2645833\\\" id=\\\"rect3701\\\" xml:space=\\\"default\\\" style=\\\"fill:#FF0000;\\\" />\\r\\n  </g>\\r\\n</svg>\",\n    \"DateCreated\": \"2018-04-06T16:53:06.69\"\n}", ParameterType.RequestBody);<br />
+                                    IRestResponse response = client.Execute(request);<br />
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Tabs with icons on Card -->
+        </div>
+
+    </div>
+
+</div>
+

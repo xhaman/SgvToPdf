@@ -209,6 +209,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ScalableVectorGraphicsController.cs" />
+    <Compile Include="Controllers\sgvApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -314,6 +315,7 @@
     <Content Include="Views\ScalableVectorGraphics\Edit.cshtml" />
     <Content Include="Views\ScalableVectorGraphics\Index.cshtml" />
     <Content Include="Views\ScalableVectorGraphics\GeneratePdf.cshtml" />
+    <Content Include="Views\Home\ApiDocumentation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804032244067_InitialCreate.resx">
@@ -353,7 +355,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55972</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
