@@ -43,11 +43,11 @@ namespace SgvToPdf.Services
 
             };
             listToSeed.Add(sgvItem3);
-
+            var CurrentHost = System.Web.HttpContext.Current.Request.Url.Host + (System.Web.HttpContext.Current.Request.Url.Port == 80 ? string.Empty : ":" + System.Web.HttpContext.Current.Request.Url.Port);
             foreach (var item in listToSeed)
             {
 
-                var client = new RestClient("http://localhost:55972/api/sgvApi/");
+                var client = new RestClient("http://"+ CurrentHost+"/api/sgvApi/");
                 var request = new RestRequest(Method.POST);
 
                 request.AddHeader("Cache-Control", "no-cache");
