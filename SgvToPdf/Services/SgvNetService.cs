@@ -60,13 +60,12 @@ namespace SgvToPdf.Services
             FSvgDoc = SvgDocument.Open(xml);
 
 
-            //Size size = new Size();
-            //size.Height = (int)FSvgDoc.Height;
-            //size.Width = (int)FSvgDoc.Width;
+            SizeF size = FSvgDoc.GetDimensions();
+    
             //var Resized = ResizeKeepAspect(size, maxHeight, maxWidth);
   
 
-            FSvgDoc.ViewBox = new SvgViewBox() { Height = maxHeight*3, Width = maxWidth*3 };//TODO: Fix proper ratio
+            FSvgDoc.ViewBox = new SvgViewBox() { Height = size.Height, Width = size.Width };//TODO: Fix proper ratio
             FSvgDoc.Width = maxWidth;// Resized.Width;
             FSvgDoc.Height = new SvgUnit(SvgUnitType.None, 0);
 

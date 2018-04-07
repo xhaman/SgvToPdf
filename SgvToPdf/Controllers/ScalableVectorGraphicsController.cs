@@ -110,10 +110,14 @@ namespace SgvToPdf.Controllers
 
             var listOfSgv =  db.ScalableVectorGraphics.ToList();
 
+
+            if (listOfSgv.Any()) { 
             IPdfService pdfWriter = new PdfServiceItextSharp();
             var stream = pdfWriter.MultipleItems(listOfSgv);
 
             return File(stream, "application/pdf", "DownloadName.pdf");
+            }
+            return View();
 
         }
 
