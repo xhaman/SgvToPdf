@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using static SgvToPdf.Services.SgvNetService;
 
 namespace SgvToPdf.Services
 {
@@ -40,6 +41,12 @@ namespace SgvToPdf.Services
                     title.Alignment = Element.ALIGN_CENTER;
                     doc.Add(title);
 
+
+                    Chunk DateChunk = new Chunk("Created on: " + sgv.DateCreated, pdfLabel);
+                    Paragraph Date = new Paragraph(DateChunk);
+                    Date.Alignment = Element.ALIGN_RIGHT;
+                    doc.Add(Date);
+
                     doc.Add(new Chunk("\n"));
                     Chunk labelImageChunk = new Chunk("Image", pdfLabel);
                     Paragraph imgaeLabel = new Paragraph(labelImageChunk);
@@ -49,10 +56,7 @@ namespace SgvToPdf.Services
                     iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(bitmap, System.Drawing.Imaging.ImageFormat.Bmp);
                     doc.Add(pic);
 
-                    Chunk DateChunk = new Chunk("Created on: "+sgv.DateCreated, pdfLabel);
-                    Paragraph Date = new Paragraph(DateChunk);
-                    Date.Alignment = Element.ALIGN_RIGHT;
-                    doc.Add(Date);
+                 
 
                     doc.NewPage();
                 }
@@ -65,20 +69,22 @@ namespace SgvToPdf.Services
             }
             catch (DocumentException de)
             {
-                Console.Error.WriteLine(de.Message);
-
-                throw;
+                throw new DocumentException("Your document could not be created");
+        
             }
             catch (IOException ioe)
             {
-                Console.Error.WriteLine(ioe.Message);
+                throw new DocumentException("Your document could not be saved, Please check permisions");
 
-                throw;
+            }
+            catch (SgvToBitmapDrawException sgve)
+            {
+                throw new DocumentException(sgve.Message);
+
             }
             catch (Exception ex)
             {
-                var mes = ex;
-                throw;
+                throw new Exception("Sorry, something goes really  wrong");
             }
 
         }

@@ -17,18 +17,29 @@ namespace SgvToPdf.Services
 
         public Bitmap SgvToBitmap(string sgv)
         {
-            XmlDocument xml = new XmlDocument();
-            xml.LoadXml(sgv);
-            SvgDocument FSvgDoc = new SvgDocument();
-            FSvgDoc = SvgDocument.Open(xml);
 
-            var bitmap = FSvgDoc.Draw();
-            Size size = new Size() { Height = (int)FSvgDoc.Height, Width = (int)FSvgDoc.Width };
-            var AspectRatio = ResizeKeepAspect(size, 400, 600);
-            bitmap = new Bitmap(bitmap, new Size(AspectRatio.Width, AspectRatio.Height ));
+            try
+            {
+                XmlDocument xml = new XmlDocument();
+                xml.LoadXml(sgv);
+                SvgDocument FSvgDoc = new SvgDocument();
+                FSvgDoc = SvgDocument.Open(xml);
 
-            bitmap = DrawWhiteBackground(bitmap);
-            return bitmap;
+                var bitmap = FSvgDoc.Draw();
+                Size size = new Size() { Height = (int)FSvgDoc.Height, Width = (int)FSvgDoc.Width };
+                var AspectRatio = ResizeKeepAspect(size, 400, 600);
+                bitmap = new Bitmap(bitmap, new Size(AspectRatio.Width, AspectRatio.Height));
+
+                bitmap = DrawWhiteBackground(bitmap);
+                return bitmap;
+            }
+
+            catch (Exception ex)
+            {
+
+                throw new SgvToBitmapDrawException("Your sgv specification could not be render into bitmap");
+            }
+
 
         }
 
@@ -113,6 +124,24 @@ namespace SgvToPdf.Services
         {
             decimal rnd = Math.Min(maxWidth / (decimal)src.Width, maxHeight / (decimal)src.Height);
             return new Size((int)Math.Round(src.Width * rnd), (int)Math.Round(src.Height * rnd));
+        }
+
+
+        public class SgvToBitmapDrawException : Exception
+        {
+            public SgvToBitmapDrawException()
+            {
+            }
+
+            public SgvToBitmapDrawException(string message)
+                : base(message)
+            {
+            }
+
+            public SgvToBitmapDrawException(string message, Exception inner)
+                : base(message, inner)
+            {
+            }
         }
     }
 }

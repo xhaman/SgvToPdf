@@ -32,7 +32,7 @@ namespace SgvToPdf.Controllers
         }
 
         // GET: ScalableVectorGraphics
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string message)
         {
           var sgvFullList = new List<SgvWithResizedInline>();
           var sgvList =  await db.ScalableVectorGraphics.ToListAsync();
@@ -47,6 +47,7 @@ namespace SgvToPdf.Controllers
                 sgvFullList.Add(sgvFullItem);
 
             }
+            if (!string.IsNullOrWhiteSpace(message)) ViewBag.Message = message;
            
 
             return View(sgvFullList);
@@ -111,17 +112,28 @@ namespace SgvToPdf.Controllers
         }
         public ActionResult GeneratePdf()
         {
-
+            string _message;
             var listOfSgv =  db.ScalableVectorGraphics.ToList();
 
-
-            if (listOfSgv.Any()) { 
-           // IPdfService pdfWriter = new PdfServiceItextSharp();
-            var stream = _pdfService.MultipleItems(listOfSgv);
-
-            return File(stream, "application/pdf", "DownloadName.pdf");
+            if (listOfSgv.Any())
+            {
+                try
+                {
+                    var stream = _pdfService.MultipleItems(listOfSgv);
+                    return File(stream, "application/pdf", "svgList.pdf");
+                }
+                catch (Exception ex)
+                {
+                    _message = ex.Message;              
+                }
             }
-            return View();
+            else
+            {
+
+                _message = "PDF can not be generated bacause your table contains no items";
+            }
+
+            return RedirectToAction("Index", "ScalableVectorGraphics", new { message = _message });
 
         }
 
