@@ -9,7 +9,7 @@ using System.Xml;
 
 namespace SgvToPdf.Services
 {
-    class SgvNetService : ISgvService
+    class SgvNetService : ISvgService
     {
 
 

@@ -49,7 +49,7 @@ namespace SgvToPdf.Controllers
             {
                 return BadRequest();
             }
-            ISgvService sgvService = new SgvNetService();
+            ISvgService sgvService = new SgvNetService();
             if (sgvService.ValidateInlineSgv(scalableVectorGraphic.SgvSpecs))
             {
 
@@ -84,7 +84,7 @@ namespace SgvToPdf.Controllers
             {
                 return BadRequest(ModelState);
             }
-            ISgvService sgvService = new SgvNetService();
+            ISvgService sgvService = new SgvNetService();
             if (sgvService.ValidateInlineSgv(scalableVectorGraphic.SgvSpecs))
             {
 

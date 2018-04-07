@@ -3,7 +3,7 @@ using System.Web;
 
 namespace SgvToPdf.Services
 {
-    interface ISgvService
+    public interface ISvgService
     {
          Bitmap SgvToBitmap(string sgv);
          string SgvResize(string sgv, int maxHeight, int maxWidth);

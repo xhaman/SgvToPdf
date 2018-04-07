@@ -20,7 +20,16 @@ namespace SgvToPdf.Controllers
 {
     public class ScalableVectorGraphicsController : Controller
     {
+        readonly IPdfService _pdfService;
+        readonly ISvgService _svgService;
         private ApplicationDbContext db = new ApplicationDbContext();
+
+
+        public ScalableVectorGraphicsController(IPdfService pdfService, ISvgService svgService)
+        {
+            _pdfService = pdfService;
+            _svgService = svgService;
+        }
 
         // GET: ScalableVectorGraphics
         public async Task<ActionResult> Index()
@@ -32,10 +41,8 @@ namespace SgvToPdf.Controllers
             {
                 var sgvFullItem = new SgvWithResizedInline();
                 sgvFullItem.sgv = sgv;
-                sgvFullItem.SgvResized = sgv.SgvSpecs.Length <= 200 ? sgv.SgvSpecs : (sgv.SgvSpecs.Substring(0, 200) + "...");
-
-                ISgvService sgvResized = new SgvNetService();
-                sgvFullItem.sgv.SgvSpecs = sgvResized.SgvResize(sgv.SgvSpecs,200,200);
+                sgvFullItem.SgvResized = sgv.SgvSpecs.Length <= 200 ? sgv.SgvSpecs : (sgv.SgvSpecs.Substring(0, 200) + "...");      
+                sgvFullItem.sgv.SgvSpecs = _svgService.SgvResize(sgv.SgvSpecs,200,200);
 
                 sgvFullList.Add(sgvFullItem);
 
@@ -60,10 +67,7 @@ namespace SgvToPdf.Controllers
 
             var sgvWithResized = new SgvWithResizedInline();
             sgvWithResized.sgv = scalableVectorGraphic;
-            
-
-            ISgvService sgvResized = new SgvNetService();
-            sgvWithResized.SgvResized = sgvResized.SgvResize(scalableVectorGraphic.SgvSpecs,300,300);
+            sgvWithResized.SgvResized = _svgService.SgvResize(scalableVectorGraphic.SgvSpecs,300,300);
 
             return View(sgvWithResized);
         }
@@ -79,13 +83,13 @@ namespace SgvToPdf.Controllers
         [ValidateAntiForgeryToken]     
         public async Task<ActionResult> Create([Bind(Include = "Id,Title,SgvSpecs")] ScalableVectorGraphic scalableVectorGraphic, HttpPostedFileBase image)
         {
-            ISgvService sgvService = new SgvNetService();          
+              
             if (image != null)
             {               
-                scalableVectorGraphic.SgvSpecs = sgvService.getXmlfromFile(image);
+                scalableVectorGraphic.SgvSpecs = _svgService.getXmlfromFile(image);
             }
 
-            if (sgvService.ValidateInlineSgv(scalableVectorGraphic.SgvSpecs))
+            if (_svgService.ValidateInlineSgv(scalableVectorGraphic.SgvSpecs))
             {
                 scalableVectorGraphic.DateCreated = DateTime.UtcNow;
                 if (ModelState.IsValid)
@@ -112,8 +116,8 @@ namespace SgvToPdf.Controllers
 
 
             if (listOfSgv.Any()) { 
-            IPdfService pdfWriter = new PdfServiceItextSharp();
-            var stream = pdfWriter.MultipleItems(listOfSgv);
+           // IPdfService pdfWriter = new PdfServiceItextSharp();
+            var stream = _pdfService.MultipleItems(listOfSgv);
 
             return File(stream, "application/pdf", "DownloadName.pdf");
             }
@@ -148,10 +152,7 @@ namespace SgvToPdf.Controllers
             return View(scalableVectorGraphic);
         }
 
-        // POST: ScalableVectorGraphics/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        
+        // POST: ScalableVectorGraphics/Edit/5       
         [ValidateAntiForgeryToken]
         [HttpPost, ValidateInput(false)]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Title,SgvSpecs,DateCreated")] ScalableVectorGraphic scalableVectorGraphic, HttpPostedFileBase image)
@@ -159,8 +160,8 @@ namespace SgvToPdf.Controllers
 
             if (image != null)
             {
-                ISgvService sgvToBitmap = new SgvNetService();
-                scalableVectorGraphic.SgvSpecs = sgvToBitmap.getXmlfromFile(image);
+               
+                scalableVectorGraphic.SgvSpecs = _svgService.getXmlfromFile(image);
             }
 
             if (ModelState.IsValid)

@@ -4,7 +4,7 @@ using System.IO;
 
 namespace SgvToPdf.Services
 {
-    interface IPdfService
+   public interface IPdfService
     {
          Stream WriteSingleItem();
 

@@ -25,7 +25,7 @@ namespace SgvToPdf.Services
 
                 foreach (var sgv in listOfSgv)
                 {
-                    ISgvService sgvToBitmap = new SgvNetService();
+                    ISvgService sgvToBitmap = new SgvNetService();
                     var bitmap = sgvToBitmap.SgvToBitmap(sgv.SgvSpecs);
 
                     Font pdfLabel = new Font(Font.FontFamily.HELVETICA, 10f, Font.NORMAL, BaseColor.GRAY);
@@ -75,9 +75,9 @@ namespace SgvToPdf.Services
 
                 throw;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                var mes = ex;
                 throw;
             }
 
